@@ -8,7 +8,7 @@ use std::ops::Range;
 use serde::Serialize;
 
 use borsh::{BorshDeserialize, BorshSchema, BorshSerialize};
-use solana_program::borsh::{get_instance_packed_len, try_from_slice_unchecked};
+use solana_program::borsh0_10;
 use solana_program::clock::Clock;
 use solana_program::{
     account_info::AccountInfo, clock::Epoch, entrypoint::ProgramResult, msg,
@@ -242,7 +242,7 @@ impl Lido {
             );
             return Err(LidoError::InvalidOwner.into());
         }
-        let lido = try_from_slice_unchecked::<Lido>(&lido.data.borrow())?;
+        let lido = borsh0_10::try_from_slice_unchecked::<Lido>(&lido.data.borrow())?;
         Ok(lido)
     }
 
@@ -256,7 +256,7 @@ impl Lido {
             maintainers: Maintainers::new_fill_default(max_maintainers),
             ..Default::default()
         };
-        get_instance_packed_len(&lido_instance).unwrap()
+        borsh0_10::get_instance_packed_len(&lido_instance).unwrap()
     }
 
     /// Confirm that the given account is Solido's stSOL mint.
