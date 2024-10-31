@@ -192,12 +192,11 @@ impl StakeAccount {
         seed: u64,
     ) -> StakeAccount {
         let target_epoch = clock.epoch;
-        let history = Some(stake_history);
 
         let mut state =
             stake
                 .delegation
-                .stake_activating_and_deactivating(target_epoch, history, None);
+                .stake_activating_and_deactivating(target_epoch, stake_history, None);
 
         // `stake_activating_and_deactivating` counts deactivating stake both as
         // part of the active lamports, and as part of the deactivating
