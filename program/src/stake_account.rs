@@ -192,7 +192,7 @@ impl StakeAccount {
         seed: u64,
     ) -> StakeAccount {
         let target_epoch = clock.epoch;
-        let history = Some(stake_history);
+        let history = stake_history.clone();
 
         let mut state =
             stake
